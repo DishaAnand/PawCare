@@ -8,6 +8,7 @@ $navbar-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   height: $navbar-height;
   background-color: $background-color;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -19,7 +20,7 @@ $navbar-height: 60px;
     font-size: 1.8rem;
     font-weight: 700;
     color: $primary-color;
-    flex: 1;
+    // flex: 1;
     text-align: center;
   }
 

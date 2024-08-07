@@ -117,7 +117,7 @@ const MyBookings = () => {
             Logged in as:
           </Typography>
           <Typography variant="body1" sx={{ color: '#3f51b5', fontFamily: 'Roboto, sans-serif', fontWeight: 'bold' }}>
-            {userData?.displayName || ''}
+            {userData?.displayName ? userData?.displayName : (userData?.username || userData?.email)}
           </Typography>
         </Box>
       </Paper>
