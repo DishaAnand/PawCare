@@ -12,8 +12,13 @@ function Login() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/profile");
-  }, [user, loading]);
+    if (user) {
+      const userEmail = email || user.email; // Use email from input or from Google login
+      localStorage.setItem('userData', JSON.stringify(user));
+      localStorage.setItem("userEmail", userEmail); // Save the email to local storage
+      navigate("/my-bookings");
+    }
+  }, [user, loading, navigate, email]);
 
   return (
     <div className="login">

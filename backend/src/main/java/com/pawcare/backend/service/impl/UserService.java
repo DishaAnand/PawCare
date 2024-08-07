@@ -15,6 +15,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User createUser(User user) throws IllegalArgumentException {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username already in use");
+        }
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already in use");
+        }
+
+        return userRepository.save(user);
+    }
+
+
     public Optional<User> getUserById(String id) {
         return userRepository.findById(id);
     }
@@ -47,4 +60,12 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 }

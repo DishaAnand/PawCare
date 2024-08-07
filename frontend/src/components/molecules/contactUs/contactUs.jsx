@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { TextField, Button, Typography, Box, Paper } from '@mui/material';
+import axios from 'axios';
+import dogImage from './dogImage.png';  
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
     email: '',
-    issueDescription: '',
+    phoneNumber: '',
+    description: '',  // Add description field to state
   });
 
   const [error, setError] = useState('');
@@ -12,94 +17,112 @@ const ContactUs = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setForm({ ...form, [name]: value });
     setError('');
     setSuccessMessage('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const namePattern = /^[A-Za-z\s]+$/;
-    if (!namePattern.test(formData.fullName)) {
-      setError('Full name should contain only letters and spaces.');
-      return;
-    }
 
-    if (!formData.fullName || !formData.email || !formData.issueDescription) {
+    if (!form.firstName || !form.lastName || !form.email || !form.phoneNumber || !form.description) {
       setError('All fields are required.');
       return;
     }
 
-    // Handle form submission logic here
-    console.log('Form data submitted:', formData);
-    setSuccessMessage('Issue saved! We will get back to you shortly.');
-    // Clear form
-    setFormData({
-      fullName: '',
-      email: '',
-      issueDescription: '',
-    });
+    try {
+      const contactUsEndpoint = `${import.meta.env.VITE_BACKEND_URL}/api/contactus/submit`;
+      const response = await axios.post(contactUsEndpoint, form);
+      console.log('Form data submitted:', response.data);
+      setSuccessMessage('Form submitted successfully! We will get back to you shortly.');
+      setForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        description: '',  // Reset description field
+      });
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+      setError('An error occurred while submitting the form. Please try again.');
+    }
   };
 
-  const isFormValid = formData.fullName && formData.email && formData.issueDescription;
-
   return (
-    <div style={{ textAlign: 'center', padding: '50px', backgroundColor: '#CB976F', minHeight: '100vh' }}>
-      <h1>Contact Us</h1>
-      <form onSubmit={handleSubmit} style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#FFF1E0', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }}>
-        <div style={{ margin: '20px 0' }}>
-          <label htmlFor="fullName" style={{ display: 'block', marginBottom: '5px' }}>Full Name</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            placeholder="Enter your full name"
-            value={formData.fullName}
-            onChange={handleChange}
-            style={{ width: '100%', padding: '10px', boxSizing: 'border-box' }}
-            required
-          />
-        </div>
-        <div style={{ margin: '20px 0' }}>
-          <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            style={{ width: '100%', padding: '10px', boxSizing: 'border-box' }}
-            required
-          />
-        </div>
-        <div style={{ margin: '20px 0' }}>
-          <label htmlFor="issueDescription" style={{ display: 'block', marginBottom: '5px' }}>Issue Description</label>
-          <textarea
-            id="issueDescription"
-            name="issueDescription"
-            placeholder="Describe your issue"
-            value={formData.issueDescription}
-            onChange={handleChange}
-            style={{ width: '100%', padding: '10px', boxSizing: 'border-box', backgroundColor: '#FFFFFF' }}
-            rows="6"
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-        <button
-          type="submit"
-          style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: isFormValid ? '#B4C99D' : '#d3d3d3', border: 'none', borderRadius: '5px', cursor: isFormValid ? 'pointer' : 'not-allowed' }}
-          disabled={!isFormValid}
-        >
-          Save
-        </button>
-      </form>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100%', padding: 2 }}>
+      <Paper elevation={3} sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'stretch', borderRadius: '10px', overflow: 'hidden', maxWidth: '900px', width: '100%' }}>
+        <Box sx={{ flex: 1, padding: 3 }}>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#3f51b5', textAlign: 'center' }}>
+            Chat to our team
+          </Typography>
+          <Typography variant="body1" gutterBottom sx={{ textAlign: 'center' }}>
+            Need help with something? Want a demo? Get in touch with our friendly team and we’ll get in touch within 2 hours.
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              label="First Name"
+              name="firstName"
+              value={form.firstName}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              label="Last Name"
+              name="lastName"
+              value={form.lastName}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              label="Work Email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              label="Phone Number"
+              name="phoneNumber"
+              value={form.phoneNumber}
+              onChange={handleChange}
+              required
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              variant="outlined"
+              label="Description"
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              required
+            />
+            {error && <Typography color="error" sx={{ textAlign: 'center', mt: 2 }}>{error}</Typography>}
+            {successMessage && <Typography color="success" sx={{ textAlign: 'center', mt: 2 }}>{successMessage}</Typography>}
+            <Box textAlign="center" mt={4}>
+              <Button variant="contained" color="primary" type="submit" sx={{ padding: '10px 20px', fontSize: '16px', fontWeight: 'bold' }}>
+                Get in touch
+              </Button>
+            </Box>
+          </form>
+        </Box>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: 'auto' }}>
+          <img src={dogImage} alt="Dog" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 

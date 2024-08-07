@@ -36,15 +36,31 @@ PawCare addresses these problems by:
 - Providing regular exercise and socialization opportunities with other dogs.
 - Ensuring that all staff are trained in pet care and behavior management.
 
+# Group Submission (Dynamic Developer)
+
+- _Date Created_: 28th May, 2024
+- _Last Modification Date_: 07 August, 2024
+- _GitLab URL_: [PawCare](https://git.cs.dal.ca/rachit/pawcare)
+- _Deployed URL_: https://paw-care-amber.vercel.app/
+
 ## Features
 **Log in/Sign up**: Users can create an account and log in to access the platform.
+![Register](/images/Register.jpg)
+![Login](/images/Login.jpg)
 **Company Information**: Users can view information about the company.
 ![Contact](/images/ContactUs.jpg)
 ![About](/images/AboutUs.jpg)
-
 **User Management**: Users can create an account, log in, and manage their profile.
 **Dog Profile**: Users can create a profile for their dog(s) and manage their information.
 ![User Profile](/images/UserManagement.jpg)
+**Booking**: Users can book day care services for their dog(s).
+![Booking](/images/Booking.jpg)
+**Brand Partners**: Users can view information about the company's brand partners.
+![Brand Partners](/images/BrandPartners.jpg)
+**Shopping**: Users can purchase products from the company's online store.
+![Shopping](/images/Shopping.jpg)
+**Analytics**: Users can view detailed analytics and reports for the user and their dogs behaviour at PawCare.
+![Analytics](/images/analytics.png)
 
 # Pre-requisites
 For build and running the application locally the project requires:
@@ -72,19 +88,11 @@ For build and running the application locally the project requires:
 | ESLint JS | 9.3.0 | ESLint plugin for analyzing JavaScript code |
 | Globals | 15.3.0 | Polyfill for browser globals (might not be required in modern browsers) |
 
-# Group Submission (Dynamic Developer)
-
-- _Date Created_: 28th May, 2024
-- _Last Modification Date_: 14th June, 2024
-- _GitLab URL_: [PawCare](https://git.cs.dal.ca/rachit/pawcare)
-- _Deployed URL_: []()
-
 # Built With
  
 - [React](https://legacy.reactjs.org/docs/getting-started.html/) - Web Framework used
 - [npm](https://docs.npmjs.com//) - Dependency Package Manager
 - [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) - Styling Framework used with React
-- [AWS](https://aws.amazon.com/) - Backend
 - [Java Springboot](https://spring.io/projects/spring-boot) - Backend Framework used
 
 # Authors
@@ -148,11 +156,11 @@ Run the application using Maven
     $ git clone https://git.cs.dal.ca/rachit/pawcare.git 
 
 # [Trello Board](https://trello.com/b/fRwMXPxB/dynamic-developers-pawcare)
-![Trello Board](/images/Trello.jpg)
+![Trello Board](/images/Trello.png)
 
  
 # Deployment
-## [Frontend]()
+## [Frontend](https://paw-care-amber.vercel.app/)
 ## [Backend](https://pawcarebackend.onrender.com)
 
-<!-- ## Sources Used### -->
+<!-- ## Sources Used ### -->

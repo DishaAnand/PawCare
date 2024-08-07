@@ -16,8 +16,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-
-import { getAnalytics } from "firebase/analytics";
+import axios from 'axios';  // Import axios
 
 const firebaseConfig = {
   apiKey: "AIzaSyBavZEWd7mU0Q_ZuC8zBXUM-OcI1B1tN6k",
@@ -43,30 +42,38 @@ const signInWithGoogle = async () => {
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
     if (docs.docs.length === 0) {
-      let mobileNumber = prompt("Please enter your mobile number:");
+      // let mobileNumber = prompt("Please enter your mobile number:");
 
-      while (mobileNumber === null || mobileNumber.trim() === "") {
-        mobileNumber = prompt(
-          "Mobile number cannot be empty. Please enter your mobile number:"
-        );
-      }
-      if (mobileNumber) {
-        await addDoc(collection(db, "users"), {
-          uid: user.uid,
-          name: user.displayName,
-          authProvider: "google",
+        const userData = {
           email: user.email,
-          mobile: mobileNumber,
-        });
-      }
-      else {
-          alert("Mobile number is required for registration.");
+          username: user.displayName,
+          password: "",
+          address: "", 
+          phoneNumber: "", //mobileNumber,
+          dogName: "",
+          dogBreed: "",
+          dogAge: "",
+          dogGender: "",
+          dogHealthIssues: "",
+          dogDietRestrictions: ""
         }
-    } 
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
+      
+        // await addDoc(collection(db, "users"), {
+        //   uid: user.uid,
+        //   name: user.displayName,
+        //   authProvider: "google",
+        //   email: user.email,
+        //   mobile: mobileNumber,
+        // });
+        // Save to MongoDB
+        await axios.post('https://pawcarebackend.onrender.com/users/create', userData);
+  } 
+
+}
+catch (err) {
+  console.error(err);
+  alert(err.message);
+}
 };
 
 const logInWithEmailAndPassword = async (email, password) => {
@@ -78,17 +85,32 @@ const logInWithEmailAndPassword = async (email, password) => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password, mobile) => {
+const registerWithEmailAndPassword = async (name, email, password, mobile, address, dogName, dogBreed, dogAge, dogGender, dogHealthIssues, dogDietRestrictions) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name,
-      authProvider: "local",
+    const userData = {
       email,
-      mobile,
-    });
+      username: name,
+      password:password,
+      address,
+      phoneNumber: mobile,
+      dogName,
+      dogBreed,
+      dogAge,
+      dogGender,
+      dogHealthIssues,
+      dogDietRestrictions
+    };
+    // await addDoc(collection(db, "users"), {
+    //   uid: user.uid,
+    //   name,
+    //   authProvider: "local",
+    //   email,
+    //   mobile,
+    // });
+    // Save to MongoDB
+    await axios.post('https://pawcarebackend.onrender.com/users/create', userData);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -113,8 +135,10 @@ const logout = () => {
     .catch((error) => {
       alert(`Logout error: ${error.message}`);
     });
+  localStorage.removeItem('userEmail');
+  localStorage.removeItem('userData');
+  localStorage.removeItem('cart');
 };
-
 
 export {
   auth,

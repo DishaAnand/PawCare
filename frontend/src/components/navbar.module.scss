@@ -14,6 +14,8 @@ $navbar-height: 60px;
   padding: 0 20px;
 
   &__title {
+    display: flex;
+    text-decoration: none;
     font-size: 1.8rem;
     font-weight: 700;
     color: $primary-color;
@@ -26,16 +28,30 @@ $navbar-height: 60px;
     gap: 2rem;
     flex: 1;
     justify-content: flex-end;
-  }
 
-  &__link {
-    color: $text-color;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    .navbar__link {
+      color: $text-color;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
 
-    &:hover {
-      color: $link-hover-color;
+      &:hover {
+        color: $link-hover-color;
+      }
+    }
+
+    .logout {
+      // Styles specific to the logout button
+      background-color: transparent;
+      color: $primary-color;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
     }
   }
 }
