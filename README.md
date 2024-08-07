@@ -157,10 +157,11 @@ Run the application using Maven
 
 # [Trello Board](https://trello.com/b/fRwMXPxB/dynamic-developers-pawcare)
 ![Trello Board](/images/Trello.png)
+![Trello Board](/images/Trello1.png)
 
  
 # Deployment
-## [Frontend](https://paw-care-amber.vercel.app/)
+## [Frontend](https://https://paw-care.vercel.app/)
 ## [Backend](https://pawcarebackend.onrender.com)
 
 <!-- ## Sources Used ### -->
